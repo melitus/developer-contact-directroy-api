@@ -1,5 +1,4 @@
-// @flow
-import toobusy from 'toobusy-js';
+const toobusy = required('toobusy-js');
 
 // Middleware which blocks requests when the Node server is too busy
 // now automatically retries the request at another instance of the server if it's too busy
@@ -12,7 +11,7 @@ export default (
   if (process.env.NODE_ENV !== 'testing' && !process.env.TEST_DB && toobusy()) {
     res.statusCode = 503;
     res.send(
-      'It looks like Provoice is very busy right now, please try again in a minute.'
+      'It looks like Developer Contact Diretory is very busy right now, please try again in a minute.'
     );
   } else {
     next();
