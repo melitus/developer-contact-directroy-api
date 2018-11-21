@@ -1,0 +1,27 @@
+{
+  "name": "developer-contact-directroy-api",
+  "version": "1.0.0",
+  "description": "Developer Contact Directory Api Design",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/melitus/developer-contact-directroy-api.git"
+  },
+  "keywords": [
+    "Rest",
+    "API",
+    "Express",
+    "Mongodb",
+    "Postman",
+    "Nodejs"
+  ],
+  "author": "Sunday Aroh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/melitus/developer-contact-directroy-api/issues"
+  },
+  "homepage": "https://github.com/melitus/developer-contact-directroy-api#readme"
+}
