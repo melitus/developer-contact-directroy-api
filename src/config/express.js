@@ -1,6 +1,6 @@
 const express = require('express');
 
-//const routes = require('../routes/v1');
+const routes = require('../routes/developer.route');
 const middlewaresConfig = require('../middlewares/middlewares')
 const addSecurityMiddleware = require('../middlewares/security');
 const toobusy = require('../middlewares/toobusy');
@@ -23,7 +23,7 @@ addSecurityMiddleware(app);
 middlewaresConfig(app);
 
 // mount api v1 routes
-//app.use('/v1', routes);
+app.use('/', routes);
 
 
 module.exports = app;

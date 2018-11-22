@@ -1,5 +1,7 @@
 const chai = require('chai');
 const request = require('supertest');
+const httpStatus = require('http-status');
+
 
 const app = require('../server/index');
 
@@ -15,12 +17,12 @@ describe('Developer Contact Diretory Api Test', function() {
     it('should create a developer model', function(done) {
       request(app)
         .post('/developers')
-        .send(developer)
         .set('Accept', 'application/json')
-        .end(function(err, res) {
-          expect(res.statusCode).to.equal(200);
+        .send(developer)
+        .expect(httpStatus.CREATED)
+        .then((res) => {
           expect(res.body.name).to.equal('integration test');
-          task = res.body;
+          developer = res.body;
           done();
         });
     });
@@ -31,20 +33,20 @@ describe('Developer Contact Diretory Api Test', function() {
       request(app)
         .get('/developers')
         .set('Accept', 'application/json')
-        .end(function(err, res) {
-          expect(res.statusCode).to.equal(200);
+        .expect(httpStatus.OK)
+        .then((res) => {
           expect(res.body).to.be.an('array');
           done();
         });
     });
   });
   describe('Get a developer by id', function() {
-    it('should get a task', function(done) {
+    it('should get a developer', function(done) {
       request(app)
-        .get('/developers/' + developer._id)
+        .get('/developers/' + developerId)
         .set('Accept', 'application/json')
-        .end(function(err, res) {
-          expect(res.statusCode).to.equal(200);
+        .expect(httpStatus.OK)
+        .then(( res) => {
           expect(res.body.name).to.equal('integration test');
           done();
         });
@@ -55,12 +57,12 @@ describe('Developer Contact Diretory Api Test', function() {
     it('should modify a developer', function(done) {
       developer.name = 'New Developer'
       request(app)
-        .put('/developers/' + developer._id)
-        .send(developer)
+        .put('/developers/' + developerId)
         .set('Accept', 'application/json')
-        .end(function(err, res) {
+        .send(developer)
+        .expect(httpStatus.OK)
+        .then((res) => {
           expect(res.body.name).to.equal('New Developer');
-          expect(res.statusCode).to.equal(200);
           done();
         });
     });
@@ -68,10 +70,10 @@ describe('Developer Contact Diretory Api Test', function() {
   describe('Delete a developer by id', function() {
     it('should delete a developer', function(done) {
       request(app)
-        .delete('/developers/' + developer._id)
+        .delete('/developers/' + developerId)
         .set('Accept', 'application/json')
-        .end(function(err, res) {
-          expect(res.statusCode).to.equal(200);
+        .expect(httpStatus.OK)
+        .then(( res) => {
           expect(res.body.message).to.equal('Developer successfully deleted');
           done();
         });

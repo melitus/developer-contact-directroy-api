@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const DeveloperModel = require('../models/developer');
+const DeveloperModel = require('../models/developer.model');
 
 module.exports = {
     
@@ -11,8 +11,8 @@ module.exports = {
         res.status(200).json({Developer});
     },
     getDeveloperById: async (req, res, next) => {    
-        const { developerId } = req.value.params;;
-        console.log('getDeveloper', DeveloperId);   
+        const { developerId } = req.params;;
+        console.log('getDeveloper', developerId);   
         const Developer = await DeveloperModel.findById(developerId);
         res.status(200).json({Developer});
     },
@@ -22,13 +22,13 @@ module.exports = {
         res.status(200).json({Developers});     
     },
     updateDeveloperById: async (req, res, next) => {
-        const { developerId } = req.value.params;
+        const { developerId } = req.params;
         const newDeveloper = req.value.body;            
         const result = await DeveloperModel.findByIdAndUpdate(developerId, newDeveloper);
         res.status(200).json(result);         
     }, 
     deleteDeveloperById: async (req, res, next) => {    
-        const { developerId } = req.value.params;
+        const { developerId } = req.params;
         // get a Developer
         const Developer = await DeveloperModel.findByIdAndRemove(developerId);
         if (!Developer) {

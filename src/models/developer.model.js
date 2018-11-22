@@ -4,12 +4,16 @@ const { Schema } = mongoose
 const DeveloperSchema = new Schema({
   email: String,
   username: String,
-  password: String
-}, {
-  category: {
-    frontend: String,
-    backend: String
-  }
+  password: String,
+  Created_date: {
+    type: Date,
+    default: Date.now
+  },
+  category: [{
+    type: String,
+    enum: ['backend', 'frontend' ]
+  }],
+  default: ['backend']
 })
 
 const Developer = mongoose.model('developer', DeveloperSchema)

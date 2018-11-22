@@ -1,13 +1,14 @@
 const express = require('express');
-const router = require('express-promise-router')();
 
-const DeveloperController = require('../controllers/Developer');
+const DeveloperController = require('../controllers/developers.controller');
 
-router.route('/')
+const router = express.Router();
+
+router.route('/developers')
     .get(DeveloperController.getAllDeveloper)
     .post(DeveloperController.createDeveloper);
 
-router.route('/:developerId')
+router.route('/developers/:developerId')
     .get(DeveloperController.getDeveloperById)
     .put(DeveloperController.updateDeveloperById)
     .delete(DeveloperController.deleteDeveloperById);        
