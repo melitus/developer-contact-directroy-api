@@ -1,30 +1,47 @@
 const mongoose = require('mongoose');
-const { mongo, env } = require('./vars');
+const { mongo } = require('./vars');
 
-// set mongoose Promise to Bluebird
-mongoose.Promise = Promise;
+let gracefulShutdown;
 
-// Exit application on error
-mongoose.connection.on('error', (err) => {
-  console.error(`MongoDB connection error: ${err}`);
-  process.exit(-1);
+// Connecting to Database
+ mongoose.connect( mongo.uri );
+
+// Checking if connection to db was successful
+mongoose.connection.on('connected', () => {
+    console.log('Mongoose successfully connected to database URL: '+ mongo.uri);
 });
 
-// print mongoose logs in dev env
-if (env === 'development') {
-  mongoose.set('debug', true);
-}
+mongoose.connection.on('error', (err) => {
+    console.error("Mongoose connection error occurred. Error: " + err);
+});
 
-/**
-* Connect to mongo db
-*
-* @returns {object} Mongoose connection
-* @public
-*/
-exports.connect = () => {
-  mongoose.connect(mongo.uri, {
-    keepAlive: 1,
-    useMongoClient: true,
-  });
-  return mongoose.connection;
+mongoose.connection.on('disconnected', () => {
+    console.log("Mongoose connection lost...");
+});
+
+// CAPTURE APP TERMINATION / RESTART EVENTS
+// To be called when process is restarted or terminated
+gracefulShutdown = function (msg, callback) {
+    mongoose.connection.close(function () {
+        console.log('Mongoose disconnected through ' + msg);
+        callback();
+    });
 };
+// For nodemon restarts
+process.once('SIGUSR2', function () {
+    gracefulShutdown('nodemon restart', function () {
+        process.kill(process.pid, 'SIGUSR2');
+    });
+});
+// For app termination
+process.on('SIGINT', function () {
+    gracefulShutdown('app termination', function () {
+        process.exit(0);
+    });
+});
+
+// module.exports = mongoose;
+
+
+
+
