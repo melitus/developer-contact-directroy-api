@@ -11,6 +11,20 @@ describe('Developer Contact Diretory Api Test', () => {
     name: 'test',
   };
 
+  describe('# Get all developers', () => {
+    it('should get all developers', (done) => {
+      request(app)
+        .get('/developers')
+        .set('Accept', 'application/json')
+        .expect(httpStatus.OK)
+        .end((res) => {
+          expect(res.body).to.be.an('array');
+          expect(res.body).to.be.empty; 
+        done();
+        });
+    });
+  });
+
   describe('# Create Developer Contact Directory ', () => {
     it('should create a developer model', (done) => {
       request(app)
@@ -22,19 +36,6 @@ describe('Developer Contact Diretory Api Test', () => {
           developer = res.body;
           expect(res.body.name).to.equal('test');
          done();
-        });
-    });
-  });
-
-  describe('# Get all developers', () => {
-    it('should get all developers', (done) => {
-      request(app)
-        .get('/developers')
-        .set('Accept', 'application/json')
-        .expect(httpStatus.OK)
-        .end((res) => {
-          expect(res.body).to.be.an('array');
-        done();
         });
     });
   });
