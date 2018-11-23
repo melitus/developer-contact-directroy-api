@@ -1,0 +1,156 @@
+{
+	"variables": [],
+	"info": {
+		"name": "DeveloperContactDirectoryApi",
+		"_postman_id": "6e9ebbca-bb80-ca89-e39f-1af9caf65a39",
+		"description": "To document Developer Contact Directory Api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "[GET] Fetch All Developers Record",
+			"request": {
+				"url": "http://localhost:{{mockport}}/developers",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": "This endpoint get all developers"
+			},
+			"response": []
+		},
+		{
+			"name": "[POST] Save a Developer Record",
+			"request": {
+				"url": "http://localhost:{{mockport}}/developers",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"email\": \"a@gmail.com\",\n  \"username\": \"santino\",\n  \"password\": \"sannn\",\n  \"category\": [\"backend\"],\n  \"default\": [\"developer\"]\n}"
+				},
+				"description": "This endpoint to save a developer"
+			},
+			"response": []
+		},
+		{
+			"name": "[GET] Get a Developer Record by Id",
+			"request": {
+				"url": {
+					"raw": "http://localhost:{{mockport}}/developers/:5bf7dc5040bc241c9078d5d",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{mockport}}",
+					"path": [
+						"developers",
+						":5bf7dc5040bc241c9078d5d"
+					],
+					"query": [],
+					"variable": [
+						{
+							"key": "5bf7dc5040bc241c9078d5d",
+							"value": ""
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"email\": \"asan@gmail.com\",\n  \"username\": \"santino\",\n  \"password\": \"sannn\",\n  \"category\": [\"backend\"],\n  \"default\": [\"developer\"]\n}"
+				},
+				"description": "This endpoint to get develop by id"
+			},
+			"response": []
+		},
+		{
+			"name": "[PUT] Update a Developer Record by Id ",
+			"request": {
+				"url": {
+					"raw": "http://localhost:{{mockport}}/developers/:5bf7dc5040bc241c9078d5d",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{mockport}}",
+					"path": [
+						"developers",
+						":5bf7dc5040bc241c9078d5d"
+					],
+					"query": [],
+					"variable": [
+						{
+							"key": "5bf7dc5040bc241c9078d5d",
+							"value": ""
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"email\": \"asan@gmail.com\",\n  \"username\": \"kehinde\",\n  \"password\": \"Obina\",\n  \"category\": [\"backend\"],\n  \"default\": [\"developer\"]\n}"
+				},
+				"description": "This endpoint to update develop by id"
+			},
+			"response": []
+		},
+		{
+			"name": "[DELETE] Remove a Developer Record by Id  ",
+			"request": {
+				"url": {
+					"raw": "http://localhost:{{mockport}}/developers/:5bf7dc5040bc241c9078d5d",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "{{mockport}}",
+					"path": [
+						"developers",
+						":5bf7dc5040bc241c9078d5d"
+					],
+					"query": [],
+					"variable": [
+						{
+							"key": "5bf7dc5040bc241c9078d5d",
+							"value": ""
+						}
+					]
+				},
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n   \"email\": \"asan@gmail.com\",\n  \"username\": \"kehinde\",\n  \"password\": \"Obina\",\n  \"category\": [\"backend\"],\n  \"default\": [\"developer\"]\n}"
+				},
+				"description": "This endpoint to delete develop by id"
+			},
+			"response": []
+		}
+	]
+}
