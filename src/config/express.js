@@ -22,7 +22,7 @@ addSecurityMiddleware(app);
 
 middlewaresConfig(app);
 
-// mount api v1 routes
+// mount api routes
 app.use('/', routes);
 
 

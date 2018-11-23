@@ -1,10 +1,12 @@
 const mongoose = require('mongoose');
 const { mongo } = require('./vars');
+// make bluebird default Promise
+mongoose.Promise = require('bluebird'); 
 
 let gracefulShutdown;
 
 // Connecting to Database
- mongoose.connect( mongo.uri );
+ mongoose.connect( mongo.uri, { useNewUrlParser: true } );
 
 // Checking if connection to db was successful
 mongoose.connection.on('connected', () => {
