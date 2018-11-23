@@ -11,6 +11,9 @@ describe('Developer Contact Diretory Api Test', () => {
     email: 'asmelitus@gmail.com',
     username: 'santino',
     password:'santino',
+    createAt: '',
+    category: ['frontend'],
+    default: ['developer']
     
   };
 
@@ -36,10 +39,7 @@ describe('Developer Contact Diretory Api Test', () => {
         .send(developer)
         .expect(httpStatus.CREATED)
         .end((res) => {
-          expect(res.body.email).to.equal('asmelitus@gmail.com');
-          expect(res.body.username).to.equal('santino');
-          expect(res.body.password).to.equal('santino');
-          developer = res.body;
+          expect(res.body).to.include(developer);
          done();
         });
     });
@@ -47,13 +47,11 @@ describe('Developer Contact Diretory Api Test', () => {
   describe('# Get a developer by id', () => {
     it('should get a developer', (done) => {
       request(app)
-        .get('/developers/' + "developerId")
+        .get('/developers/:developerId')
         .set('Accept', 'application/json')
         .expect(httpStatus.OK)
         .end(( res) => {
-          expect(res.body.email).to.equal('asmelitus@gmail.com');
-          expect(res.body.username).to.equal('santino');
-          expect(res.body.password).to.equal('santino');
+          expect(res.body).to.include(developer);
         done();
         });
     });
@@ -63,12 +61,12 @@ describe('Developer Contact Diretory Api Test', () => {
     it('should modify a developer', (done) => {
       developer.username = 'melitus'
       request(app)
-        .put('/developers/' + "developerId")
+        .put('/developers/:developerId')
         .set('Accept', 'application/json')
         .send(developer)
         .expect(httpStatus.OK)
         .end((res) => {
-          expect(res.body.username).to.equal('melitus');
+          expect(res.body).to.include(developer);
           done();
         });
     });
@@ -76,7 +74,7 @@ describe('Developer Contact Diretory Api Test', () => {
   describe('# Delete a developer by id', () => {
     it('should delete a developer', (done) => {
       request(app)
-        .delete('/developers/' + "developerId")
+        .delete('/developers/:developerId')
         .set('Accept', 'application/json')
         .expect(httpStatus.OK)
         .end(( res) => {
