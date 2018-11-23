@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
+const winston = require('winston');
 const { mongo } = require('./vars');
+
 // make bluebird default Promise
 mongoose.Promise = require('bluebird'); 
 
@@ -10,22 +12,22 @@ let gracefulShutdown;
 
 // Checking if connection to db was successful
 mongoose.connection.on('connected', () => {
-    console.log('Mongoose successfully connected to database URL: '+ mongo.uri);
+    winston.info('Mongoose successfully connected to database URL: '+ mongo.uri);
 });
 
 mongoose.connection.on('error', (err) => {
-    console.error("Mongoose connection error occurred. Error: " + err);
+    winston.error("Mongoose connection error occurred. Error: " + err);
 });
 
 mongoose.connection.on('disconnected', () => {
-    console.log("Mongoose connection lost...");
+    winston.info("Mongoose connection lost...");
 });
 
 // CAPTURE APP TERMINATION / RESTART EVENTS
 // To be called when process is restarted or terminated
 gracefulShutdown = function (msg, callback) {
     mongoose.connection.close(function () {
-        console.log('Mongoose disconnected through ' + msg);
+        winston.info('Mongoose disconnected through ' + msg);
         callback();
     });
 };
