@@ -11,9 +11,7 @@ describe('Developer Contact Diretory Api Test', () => {
     email: 'asmelitus@gmail.com',
     username: 'santino',
     password:'santino',
-    createdAt: '',
-    category: ['frontend'],
-    default: ['developer']
+    
   };
 
   describe('# Get all developers', () => {
@@ -63,14 +61,14 @@ describe('Developer Contact Diretory Api Test', () => {
 
   describe('# Update a developer by id', () => {
     it('should modify a developer', (done) => {
-      developer.name = 'New Developer'
+      developer.username = 'melitus'
       request(app)
         .put('/developers/' + "developerId")
         .set('Accept', 'application/json')
         .send(developer)
         .expect(httpStatus.OK)
         .end((res) => {
-          expect(res.body.name).to.equal('New Developer');
+          expect(res.body.username).to.equal('melitus');
           done();
         });
     });
