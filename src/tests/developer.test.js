@@ -8,7 +8,12 @@ const expect = chai.expect;
 
 describe('Developer Contact Diretory Api Test', () => {
   const developer = {
-    name: 'test',
+    email: 'asmelitus@gmail.com',
+    username: 'santino',
+    password:'santino',
+    createdAt: '',
+    category: ['frontend'],
+    default: ['developer']
   };
 
   describe('# Get all developers', () => {
@@ -33,8 +38,8 @@ describe('Developer Contact Diretory Api Test', () => {
         .send(developer)
         .expect(httpStatus.CREATED)
         .end((res) => {
-          developer = res.body;
           expect(res.body.name).to.equal('test');
+          developer = res.body;
          done();
         });
     });
@@ -42,7 +47,7 @@ describe('Developer Contact Diretory Api Test', () => {
   describe('# Get a developer by id', () => {
     it('should get a developer', (done) => {
       request(app)
-        .get('/developers/' + developerId)
+        .get('/developers/' + "developerId")
         .set('Accept', 'application/json')
         .expect(httpStatus.OK)
         .end(( res) => {
@@ -56,7 +61,7 @@ describe('Developer Contact Diretory Api Test', () => {
     it('should modify a developer', (done) => {
       developer.name = 'New Developer'
       request(app)
-        .put('/developers/' + developerId)
+        .put('/developers/' + "developerId")
         .set('Accept', 'application/json')
         .send(developer)
         .expect(httpStatus.OK)
@@ -69,7 +74,7 @@ describe('Developer Contact Diretory Api Test', () => {
   describe('# Delete a developer by id', () => {
     it('should delete a developer', (done) => {
       request(app)
-        .delete('/developers/' + developerId)
+        .delete('/developers/' + "developerId")
         .set('Accept', 'application/json')
         .expect(httpStatus.OK)
         .end(( res) => {
