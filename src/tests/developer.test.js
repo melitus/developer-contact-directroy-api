@@ -38,7 +38,9 @@ describe('Developer Contact Diretory Api Test', () => {
         .send(developer)
         .expect(httpStatus.CREATED)
         .end((res) => {
-          expect(res.body.name).to.equal('test');
+          expect(res.body.email).to.equal('asmelitus@gmail.com');
+          expect(res.body.username).to.equal('santino');
+          expect(res.body.password).to.equal('santino');
           developer = res.body;
          done();
         });
@@ -51,7 +53,9 @@ describe('Developer Contact Diretory Api Test', () => {
         .set('Accept', 'application/json')
         .expect(httpStatus.OK)
         .end(( res) => {
-          expect(res.body.name).to.equal('test');
+          expect(res.body.email).to.equal('asmelitus@gmail.com');
+          expect(res.body.username).to.equal('santino');
+          expect(res.body.password).to.equal('santino');
         done();
         });
     });
