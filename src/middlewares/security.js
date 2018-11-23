@@ -1,6 +1,5 @@
 const hpp = require('hpp');
 const helmet = require('helmet');
-var csrf = require('csurf');
 
 
 function securityMiddleware(app) {
@@ -29,10 +28,6 @@ function securityMiddleware(app) {
   // does this by setting the X-Content-Type-Options header to nosniff.
   // @see https://helmetjs.github.io/docs/dont-sniff-mimetype/
   app.use(helmet.noSniff());
-
-  // To prevent Cross-Site Request Forgery attack
-  app.use( csrf({ cookie: true }));
-
 }
 
 module.exports = securityMiddleware;
