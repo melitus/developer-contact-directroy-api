@@ -38,7 +38,7 @@ describe('Developer Contact Diretory Api Test', () => {
         });
     });
   });
-  describe('Get a developer by id', () => {
+  describe('# Get a developer by id', () => {
     it('should get a developer', (done) => {
       request(app)
         .get('/developers/' + developerId)
@@ -51,7 +51,7 @@ describe('Developer Contact Diretory Api Test', () => {
     });
   });
 
-  describe('Update a developer by id', () => {
+  describe('# Update a developer by id', () => {
     it('should modify a developer', (done) => {
       developer.name = 'New Developer'
       request(app)
@@ -65,7 +65,7 @@ describe('Developer Contact Diretory Api Test', () => {
         });
     });
   });
-  describe('Delete a developer by id', () => {
+  describe('# Delete a developer by id', () => {
     it('should delete a developer', (done) => {
       request(app)
         .delete('/developers/' + developerId)
