@@ -9,6 +9,9 @@ const toobusy = require('../middlewares/toobusy');
 // Express instance
 const app = express();
 
+// body-parser defaults to a body size limit of 100kb
+app.use(express.json({ limit: '300kb' })); 
+
 // Trust the now proxy
 app.set('trust proxy', true);
 

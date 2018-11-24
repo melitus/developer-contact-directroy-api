@@ -16,9 +16,9 @@ module.exports = {
     },
     getDeveloperById: async (req, res, next) => {  
         try{
-            const { developerId } = req.params;;
-            console.log('getDeveloper', developerId);   
-            const Developer = await DeveloperModel.findById({id: developerId});
+            const { _id } = req.params;;
+           // console.log('getDeveloper', developerId);   
+            const Developer = await DeveloperModel.findById({id: _id});
             res.status(200).json({Developer});
         }  catch (error){
             next(error);

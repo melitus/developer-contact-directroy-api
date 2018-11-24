@@ -5,15 +5,15 @@ const methodOverride = require('method-override');
 const cors = require('cors');
 const rateLimit = require("express-rate-limit");
 
+const { logs } = require('../config/vars');
 
- 
+// this help to limit concurrent requests to prevent brute-force attacks 
+// if not set,it could result to denial of service or service un available
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 100 // limit each IP to 100 requests per windowMs
 });
  
-const { logs } = require('../config/vars');
-
 module.exports = app => {
   app.enable("trust proxy"); // only if you're behind a reverse proxy (Heroku, Bluemix, AWS ELB, Nginx, etc)
   app.use(bodyParser.json()); // parse body params and attach them to req.body
