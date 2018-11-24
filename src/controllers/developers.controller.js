@@ -16,9 +16,9 @@ module.exports = {
     },
     getDeveloperById: async (req, res, next) => {  
         try{
-            const { _id } = req.params;;
-           // console.log('getDeveloper', developerId);   
-            const Developer = await DeveloperModel.findById({id: _id});
+            const { developerId } = req.params;;
+            //console.log('getDeveloper', developerId);   
+            const Developer = await DeveloperModel.findById(developerId);
             res.status(200).json({Developer});
         }  catch (error){
             next(error);
@@ -28,18 +28,18 @@ module.exports = {
         try{  
             const { developerId } = req.params;;
             console.log('getDeveloper', developerId);
-        const Developers = await DeveloperModel.find({});            
-        res.status(200).json({Developers}); 
+            const Developers = await DeveloperModel.find({});            
+            res.status(200).json({Developers}); 
         } catch(error) {
             next(error);
         }    
     },
     updateDeveloperById: async (req, res, next) => {
         try{
-        const { developerId } = req.params;
-        const newDeveloper = req.body;            
-        const result = await DeveloperModel.findByIdAndUpdate({_id: developerId}, newDeveloper);
-        res.status(200).json(result);      
+            const { developerId } = req.params;
+            const newDeveloper = req.body;            
+            const result = await DeveloperModel.findByIdAndUpdate(developerId, newDeveloper);
+            res.status(200).json(result);      
         } catch(error) {
             next(error);
         }   
@@ -48,7 +48,7 @@ module.exports = {
         try{  
         const { developerId } = req.params;
         // get a Developer
-        const Developer = await DeveloperModel.findByIdAndRemove({_id: developerId});
+        const Developer = await DeveloperModel.findByIdAndRemove(developerId);
         if (!Developer) {
             res.status(404).json({error: 'Developer does not exist'});
         }
