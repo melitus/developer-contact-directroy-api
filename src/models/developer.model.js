@@ -1,20 +1,19 @@
 const mongoose = require('mongoose');
-import validator from 'validator';
+const validator = require('validator');
 
 const { Schema } = mongoose
+
+// Developer Categories
+const categoies = ['backend', 'frontend'];
 
 const DeveloperSchema = new Schema({
 email: {
     type: String,
+    match: /^\S+@\S+\.\S+$/,
     unique: true,
     required: [true, 'Email is required!'],
     trim: true,
-    validate: {
-        validator(email) {
-            return validator.isEmail(email);
-        },
-        message: '{VALUE} is not a valid email!',
-    },
+    lowercase: true,
  },
   firstName: {
     type: String,
@@ -37,20 +36,17 @@ email: {
     required: [true, 'Password is required!'],
     trim: true,
     minlength: [6, 'Password need to be longer!'],
-    validate: {
-        validator(password) {
-            return passwordReg.test(password);
-        },
-        message: '{VALUE} is not a valid password!',
-    },
+    maxlength: 128,
  },
   createdAt: { 
     type: Date, 
-    default: Date.now },    
-  category: [{ 
+    default: Date.now 
+  },    
+  category: { 
     type: String, 
-    enum: ['backend', 'frontend' ]}],
-  default: ['developer']
+    enum: categoies,
+    default: 'backend',
+  },
 })
 
 const Developer = mongoose.model('developer', DeveloperSchema)
