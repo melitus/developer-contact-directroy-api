@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose
 
 // Developer Categories
-const categoies = ['backend', 'frontend'];
+const categories = ['backend', 'frontend'];
 
 const DeveloperSchema = new Schema({
 email: {
@@ -43,7 +43,7 @@ email: {
   },    
   category: { 
     type: String, 
-    enum: categoies,
+    enum: categories,
     default: 'backend',
   },
 })
