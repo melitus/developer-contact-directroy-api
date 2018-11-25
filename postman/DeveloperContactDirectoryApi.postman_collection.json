@@ -32,7 +32,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n   \"email\": \"a@gmail.com\",\n  \"username\": \"santino\",\n  \"password\": \"sannn\",\n  \"category\": [\"backend\"],\n  \"default\": [\"developer\"]\n}"
+					"raw": "{\n   \"email\": \"agmail.com\",\n  \"firstName\": \"santino\",\n  \"lastName\": \"santino\",\n  \"userName\": \"santino\",\n  \"password\": \"sannn\",\n  \"category\": \"backend\"\n}\n\n\n  \n \n  "
 				},
 				"description": "This endpoint to save a developer"
 			},
@@ -41,25 +41,7 @@
 		{
 			"name": "[GET] Get a Developer Record by Id",
 			"request": {
-				"url": {
-					"raw": "http://localhost:{{mockport}}/developers/:5bf7dc5040bc241c9078d5d",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "{{mockport}}",
-					"path": [
-						"developers",
-						":5bf7dc5040bc241c9078d5d"
-					],
-					"query": [],
-					"variable": [
-						{
-							"key": "5bf7dc5040bc241c9078d5d",
-							"value": ""
-						}
-					]
-				},
+				"url": "http://localhost:{{mockport}}/developers/5bfb10dd79190a22b677a958",
 				"method": "GET",
 				"header": [
 					{
@@ -79,25 +61,7 @@
 		{
 			"name": "[PUT] Update a Developer Record by Id ",
 			"request": {
-				"url": {
-					"raw": "http://localhost:{{mockport}}/developers/:5bf7dc5040bc241c9078d5d",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "{{mockport}}",
-					"path": [
-						"developers",
-						":5bf7dc5040bc241c9078d5d"
-					],
-					"query": [],
-					"variable": [
-						{
-							"key": "5bf7dc5040bc241c9078d5d",
-							"value": ""
-						}
-					]
-				},
+				"url": "http://localhost:{{mockport}}/developers/5bfb10dd79190a22b677a958",
 				"method": "PUT",
 				"header": [
 					{
@@ -108,7 +72,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n   \"email\": \"asan@gmail.com\",\n  \"username\": \"kehinde\",\n  \"password\": \"Obina\",\n  \"category\": [\"backend\"],\n  \"default\": [\"developer\"]\n}"
+					"raw": "{\n   \"email\": \"asan@gmail.com\",\n    \"firstName\": \"santino34345\",\n    \"lastName\": \"santino\",\n     \"userName\": \"santino\",\n     \"password\": \"sannnito\",\n     \"category\": \"frontend\"\n     \n}"
 				},
 				"description": "This endpoint to update develop by id"
 			},
