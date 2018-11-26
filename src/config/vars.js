@@ -9,10 +9,10 @@ require('dotenv-safe').load({
 });
 
 module.exports = {
-  app: {
+  appvar: {
     name: process.env.APP_NAME,
     port: process.env.APP_PORT || 8000,
-    environment: process.env.NODE_ENV,
+    env: process.env.NODE_ENV,
   },
   mongo: {
     uri: process.env.NODE_ENV === 'test'
