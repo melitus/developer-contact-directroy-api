@@ -32,7 +32,7 @@ module.exports = {
   },
 
   // PUT /developers/:developerId
-  updateDeveloper: {
+  replaceDeveloper: {
     body: {
         email: Joi.string().email().lowercase().required(),
         firstName: name,

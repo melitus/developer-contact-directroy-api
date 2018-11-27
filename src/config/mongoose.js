@@ -8,7 +8,7 @@ mongoose.Promise = require('bluebird');
 let gracefulShutdown;
 
 // Connecting to Database
- mongoose.connect( mongo.uri, { useNewUrlParser: true } );
+ mongoose.connect( mongo.uri, { useNewUrlParser: true, useCreateIndex: true} );
 
 // Checking if connection to db was successful
 mongoose.connection.on('connected', () => {
