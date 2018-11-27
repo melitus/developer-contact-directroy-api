@@ -9,12 +9,11 @@ const expect = chai.expect;
 describe('Developer Contact Diretory Api Test', () => {
   const developer = {
     email: 'asmelitus@gmail.com',
-    username: 'santino',
+    firstName: 'santino',
+    lastName: 'santino',
     password:'santino',
     createAt: '',
     category: ['frontend'],
-    default: ['developer']
-    
   };
 
   describe('# Get all developers', () => {

@@ -19,10 +19,9 @@ app.set('trust proxy', true);
 app.use(toobusy);
 
 // Security middleware.
-addSecurityMiddleware(app);
+addSecurityMiddleware(app, { enableNonce: false, enableCSP: false });
 
 // Middlewares
-
 middlewaresConfig(app);
 
 // mount api routes

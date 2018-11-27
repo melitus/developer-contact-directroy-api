@@ -2,6 +2,7 @@ const Joi = require('joi');
 
 // accepts name only as letters and converts to uppercase
 const name = Joi.string().regex(/^[A-Z]+$/).uppercase();
+const categories = Joi.string().alphanum().valid('backend', 'frontend').default('backend');
 
 
 module.exports = { 
@@ -14,7 +15,7 @@ module.exports = {
       firstName: name,
       lastName: name,
       userName: name,
-      category: Joi.string().alphanum().valid('backend', 'frontend').default('backend'),
+      category: categories,
     },
   },
 
@@ -26,7 +27,7 @@ module.exports = {
         lastName: name,
         userName: name,
         password: Joi.string().min(6).max(128).required(),
-        category: Joi.string().alphanum().valid('backend', 'frontend').default('backend'),
+        category: categories
     },
   },
 
@@ -38,7 +39,7 @@ module.exports = {
         lastName: name,
         userName: name,
         password: Joi.string().min(6).max(128).required(),
-        category: Joi.string().alphanum().valid('backend', 'frontend').default('backend'),
+        category: categories,
     },
     params: {
       developerId: Joi.string().regex(/^[a-fA-F0-9]{24}$/).required(),

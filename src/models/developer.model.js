@@ -5,6 +5,7 @@ const { Schema } = mongoose
 // Developer Categories
 const categories = ['backend', 'frontend'];
 
+// Define schema
 const DeveloperSchema = new Schema({
 email: {
     type: String,
@@ -37,17 +38,16 @@ email: {
     minlength: [6, 'Password need to be longer!'],
     maxlength: 128,
  },
-  createdAt: { 
-    type: Date, 
-    default: Date.now 
-  },    
   category: { 
     type: String, 
     enum: categories,
     default: 'backend',
   },
+
+  timestamps: true,
 })
 
-const Developer = mongoose.model('developer', DeveloperSchema)
+// Compile model from schema
+const Developer = mongoose.model('Developer', DeveloperSchema)
 
 module.exports = Developer;

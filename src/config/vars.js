@@ -12,7 +12,11 @@ module.exports = {
   appvar: {
     name: process.env.APP_NAME,
     port: process.env.APP_PORT || 8000,
+    host: process.env.HOST || 'localhost',
     env: process.env.NODE_ENV,
+    get serverUrl() {
+      return `http://${this.host}:${this.port}`
+    }
   },
   mongo: {
     uri: process.env.NODE_ENV === 'test'
