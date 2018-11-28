@@ -5,6 +5,7 @@ const bcrypt = require('bcryptjs');
 const moment = require('moment-timezone');
 const jwt = require('jwt-simple');
 const uuidv4 = require('uuid/v4');
+
 const APIError = require('../utils/APIError');
 const { env, jwtSecret, jwtExpirationInterval } = require('../config/vars');
 
@@ -128,6 +129,20 @@ DeveloperSchema.pre('save', async function save(next) {
   }
 });
 
+/**
+ * Virtual Property
+ */
+
+DeveloperSchema.virtual('fullName').get(function() {
+  return this.firstName + ' ' + this.lastName
+})
+DeveloperSchema.virtual('fullName').set(function(name) {
+  let str = name.split(' ')
+  
+  this.firstName = str[0]
+  this.lastName = str[1]
+})
+
 
 /**
  * Instance Methods
@@ -158,6 +173,7 @@ DeveloperSchema.method({
   },
 });
 
+
 /**
  * Statics
  */
@@ -165,20 +181,20 @@ DeveloperSchema.statics = {
 
   roles,
 
-  // Get user
+  // Get developer
   async get(id) {
     try {
-      let user;
+      let developer;
 
       if (mongoose.Types.ObjectId.isValid(id)) {
-        user = await this.findById(id).exec();
+        developer = await this.findById(id).exec();
       }
-      if (user) {
-        return user;
+      if (developer) {
+        return developer;
       }
 
       throw new APIError({
-        message: 'User does not exist',
+        message: 'Developer does not exist',
         status: httpStatus.NOT_FOUND,
       });
     } catch (error) {
@@ -186,7 +202,7 @@ DeveloperSchema.statics = {
     }
   },
 
-// Find user by email and tries to generate a JWT token
+// Find developer by email and tries to generate a JWT token
 
   async findAndGenerateToken(options) {
     const { email, password, refreshObject } = options;
@@ -215,10 +231,10 @@ DeveloperSchema.statics = {
   },
 
   /**
-   * List users in descending order of 'createdAt' timestamp.
+   * List developers in descending order of 'createdAt' timestamp.
    *
-   * @param {number} skip - Number of users to be skipped.
-   * @param {number} limit - Limit number of users to be returned.
+   * @param {number} skip - Number of developers to be skipped.
+   * @param {number} limit - Limit number of developers to be returned.
    * @returns {Promise<User[]>}
    */
   list({

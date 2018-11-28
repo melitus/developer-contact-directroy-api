@@ -15,7 +15,9 @@ module.exports = {
           return errorHandler(error, req, res);
         }
       },
-    //  Get developer
+    /*  Get developer req.locals creates some local variables 
+        that will be available to the front-end
+    */
     getDeveloperById: (req, res) => res.json(req.locals.developer.transform()),
 
     // Get logged in developer info
@@ -34,32 +36,12 @@ module.exports = {
         }
 
     },
-    getDeveloperById: async (req, res, next) => {  
-        try{
-            const { developerId } = req.params;;
-            //console.log('getDeveloper', developerId);   
-            const Developer = await Developer.findById(developerId);
-            res.status(200).json({Developer});
-        }  catch (error){
-            next(error);
-        } 
-    },
-    getAllDeveloper: async (req, res, next) => {  
-        try{  
-            const { developerId } = req.params;;
-            console.log('getDeveloper', developerId);
-            const Developers = await Developer.find({});            
-            res.status(200).json({Developers}); 
-        } catch(error) {
-            next(error);
-        }    
-    },
 
     // Replace existing developer
     replaceDeveloper: async (req, res, next) => {
         try {
         const { developer } = req.locals;
-        const newDeveloper = new developer(req.body);
+        const newDeveloper = new Developer(req.body);
         const ommitRole = developer.role !== 'admin' ? 'role' : '';
         const newDeveloperObject = omit(newDeveloper.toObject(), '_id', ommitRole);
     
@@ -100,14 +82,13 @@ module.exports = {
         try{  
         const { developerId } = req.params;
         // get a Developer
-        const Developer = await Developer.findByIdAndRemove(developerId);
-        if (!Developer) {
+        const developer = await Developer.findByIdAndRemove(developerId);
+        if (!developer) {
             res.status(404).json({error: 'Developer does not exist'});
         }
         // remove the Developer
-        await Developer.remove();
+        await developer.remove();
         res.status(200).json({ message: 'Developer successfully deleted' });
-    
     } catch (error) {
        next(error);
     }  
