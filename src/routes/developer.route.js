@@ -16,14 +16,14 @@ router.param('developerId', DeveloperController.load);
 
 // GET- /developer/profile Developer Profile
 router
-  .route('/developers/profile')
+  .route('/profile')
   .get( DeveloperController.loggedIn);
 
-router.route('/developers')
+router.route('/')
     .get(validate(listDevelopers), DeveloperController.listDevelopers)
     .post(validate(createDeveloper), DeveloperController.createDeveloper);
 
-router.route('/developers/:developerId')
+router.route('/:developerId')
     .get(DeveloperController.getDeveloperById)
     .put(validate(replaceDeveloper), DeveloperController.replaceDeveloper) // [PUT] Replace the whole developer document with a new one
     .patch(validate(updateDeveloper), DeveloperController.updateDeveloper) // Update some fields of a developer document
