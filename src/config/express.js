@@ -1,6 +1,6 @@
 const express = require('express');
 
-const routes = require('../routes/developer.route');
+const routes = require('../routes/index');
 const middlewaresConfig = require('../middlewares/middlewares')
 const addSecurityMiddleware = require('../middlewares/security');
 const toobusy = require('../middlewares/toobusy');

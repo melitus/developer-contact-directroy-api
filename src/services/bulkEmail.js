@@ -3,6 +3,7 @@
  */
 const nodemailer = require("nodemailer");
 const async = require("async");
+
 function BulkMailer(config) {
     "use strict";
     if (!config.transport) {
@@ -11,6 +12,7 @@ function BulkMailer(config) {
     this.nodemailer = nodemailer.createTransport(config.transport);
     this.isVerbose = config.verbose || false;
 }
+
 BulkMailer.prototype.send = function (info, single, callback) {
     "use strict";
     const that = this;
@@ -21,9 +23,9 @@ BulkMailer.prototype.send = function (info, single, callback) {
         receivers = [info.to];
     }
     const tasks = [];
-    async.each(receivers, function (user, eachCB) {
+    async.each(receivers, function (developer, eachCB) {
         tasks.push(function (callback) {
-            info.to = user;
+            info.to = developer;
             that.nodemailer.sendMail(info, callback);
         });
         eachCB();
@@ -35,7 +37,7 @@ BulkMailer.prototype.send = function (info, single, callback) {
                 }
                 else {
                     if (that.isVerbose) {
-                        console.info('Mail sent to respective users!');
+                        console.info('Mail sent to respective developers!');
                     }
                     return callback(null, results);
                 }

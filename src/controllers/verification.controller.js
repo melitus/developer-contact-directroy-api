@@ -2,7 +2,7 @@ var mjml2html = require('mjml');
 
 var credentials = require('../config/credentials');
 var registrationTemplate = require('../../templates/email/registration');
-var client = require('../../config/client');
+var client = require('../config/client');
 var BulkMailer = require("../services/bulkEmail");
 const Developer = require('../models/developer.model');
 
