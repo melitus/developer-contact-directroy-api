@@ -14,9 +14,8 @@ module.exports = {
     port: process.env.APP_PORT || 8000,
     host: process.env.HOST || 'localhost',
     env: process.env.NODE_ENV,
-    get serverUrl() {
-      return `http://${this.host}:${this.port}`
-    }
+    jwtSecret: process.env.JWT_SECRET,
+    jwtExpirationInterval: process.env.JWT_EXPIRATION_MINUTES,
   },
   mongo: {
     uri: process.env.NODE_ENV === 'test'
@@ -25,5 +24,9 @@ module.exports = {
   },
   application_logging: {
     logs: process.env.NODE_ENV === 'production' ? 'combined' : 'dev',
+    sendVerificationMail: true,
+    sendVerificationSms: true
   }
 };
+
+
