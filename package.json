@@ -47,6 +47,7 @@
     "mongoose": "^5.3.13",
     "morgan": "^1.9.1",
     "nodemon": "^1.18.6",
+    "otp-generator": "^1.1.0",
     "path": "^0.12.7",
     "supertest": "^3.3.0",
     "toobusy-js": "^0.5.1",
