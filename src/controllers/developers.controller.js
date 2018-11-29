@@ -34,7 +34,6 @@ module.exports = {
         } catch (error) {
             next(Developer.checkDuplicateEmail(error));
         }
-
     },
 
     // Replace existing developer
@@ -43,14 +42,15 @@ module.exports = {
         const { developer } = req.locals;
         const newDeveloper = new Developer(req.body);
         const ommitRole = developer.role !== 'admin' ? 'role' : '';
+        console.log("this is omit role", ommitRole);
         const newDeveloperObject = omit(newDeveloper.toObject(), '_id', ommitRole);
-    
-        await developer.update(newDeveloperObject, { override: true, upsert: true });
-        const savedDeveloper = await developer.findById(developer._id);
-    
+         console.log("this is newDeveloperObject", newDeveloperObject);
+        await developer.updateOne(newDeveloperObject, { override: true, upsert: true });
+        const savedDeveloper = await Developer.findById(developer._id);
+            console.log("this is saved user", savedDeveloper);
         res.json(savedDeveloper.transform());
         } catch (error) {
-        next(developer.checkDuplicateEmail(error));
+        next(Developer.checkDuplicateEmail(error));
         }
   },
   
@@ -82,7 +82,7 @@ module.exports = {
         try{  
         const { developerId } = req.params;
         // get a Developer
-        const developer = await Developer.findByIdAndRemove(developerId);
+        const developer = await Developer.findById(developerId);
         if (!developer) {
             res.status(404).json({error: 'Developer does not exist'});
         }

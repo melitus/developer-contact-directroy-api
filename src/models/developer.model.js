@@ -17,7 +17,7 @@ const roles = ['developer', 'admin'];
 // Developer Categories
 const categories = ['backend', 'frontend'];
 
-const { Schema } = mongoose
+const { Schema } = mongoose;
 
 
 
@@ -43,7 +43,7 @@ email: {
  },
   userName: {
     type: String,
-    required: [true, 'UserName is required!'],
+    required: [true, 'developerName is required!'],
     trim: true,
     unique: true,
  },
@@ -82,7 +82,7 @@ email: {
   },
   mobile: {
     type: String,
-    trim: true,
+    trim: false,
   },
   location: {
     type: String,
@@ -129,8 +129,23 @@ DeveloperSchema.pre('save', async function save(next) {
   }
 });
 
+DeveloperSchema.pre('updateOne', async function updateOne(next) {
+  if (!this.password) return next();
+  try {
+    const rounds = env === 'test' ? 1 : 10;
+
+    const hash = await bcrypt.hash(this.password, rounds);
+    this.password = hash;
+
+    return next();
+  } catch (error) {
+    return next(error);
+  }
+});
+
 /**
- * Virtual Property
+ * Virtual Property for developer's full name
+
  */
 
 DeveloperSchema.virtual('fullName').get(function() {
@@ -150,7 +165,7 @@ DeveloperSchema.virtual('fullName').set(function(name) {
 DeveloperSchema.method({
   transform() {
     const transformed = {};
-    const fields = ['id', 'name', 'email', 'picture', 'role', 'createdAt'];
+    const fields = ['id', 'userName', 'email', 'picture', 'password', 'role', 'createdAt'];
 
     fields.forEach((field) => {
       transformed[field] = this[field];
@@ -208,21 +223,21 @@ DeveloperSchema.statics = {
     const { email, password, refreshObject } = options;
     if (!email) throw new APIError({ message: 'An email is required to generate a token' });
 
-    const user = await this.findOne({ email }).exec();
+    const developer = await this.findOne({ email }).exec();
     const err = {
       status: httpStatus.UNAUTHORIZED,
       isPublic: true,
     };
     if (password) {
-      if (user && await user.passwordMatches(password)) {
-        return { user, accessToken: user.token() };
+      if (developer && await developer.passwordMatches(password)) {
+        return { developer, accessToken: developer.token() };
       }
       err.message = 'Incorrect email or password';
-    } else if (refreshObject && refreshObject.userEmail === email) {
+    } else if (refreshObject && refreshObject.developerEmail === email) {
       if (moment(refreshObject.expires).isBefore()) {
         err.message = 'Invalid refresh token.';
       } else {
-        return { user, accessToken: user.token() };
+        return { developer, accessToken: developer.token() };
       }
     } else {
       err.message = 'Incorrect email or refreshToken';
@@ -235,16 +250,16 @@ DeveloperSchema.statics = {
    *
    * @param {number} skip - Number of developers to be skipped.
    * @param {number} limit - Limit number of developers to be returned.
-   * @returns {Promise<User[]>}
+   * @returns {Promise<developer[]>}
    */
   list({
     page = 1,
     perPage = 30,
-    name,
+    userName,
     email,
     role,
   }) {
-    const options = omitBy({ name, email, role }, isNil);
+    const options = omitBy({ userName, email, role }, isNil);
 
     return this.find(options)
       .sort({ createdAt: -1 })
@@ -284,16 +299,18 @@ DeveloperSchema.statics = {
     name,
     picture,
   }) {
-    const user = await this.findOne({
+    const developer = await this.findOne({
       $or: [{
         [`services.${service}`]: id
       }, { email }]
     });
-    if (user) {
-      user.services[service] = id;
-      if (!user.name) user.name = name;
-      if (!user.picture) user.picture = picture;
-      return user.save();
+    if (developer) {
+      developer.services[service] = id;
+      if (!developer.name) 
+         developer.name = name;
+      if (!developer.picture) 
+        developer.picture = picture;
+      return developer.save();
     }
     const password = uuidv4();
     return this.create({
@@ -310,13 +327,13 @@ DeveloperSchema.statics = {
   async verifyEmail(uuid) {
     if (!uuid) throw new APIError({ message: 'No token found for verification' });
     try {
-      const user = await this.findOneAndUpdate({ uuid }, { emailVerified: true }).exec();
+      const developer = await this.findOneAndUpdate({ uuid }, { emailVerified: true }).exec();
       
-      if(user) {
+      if(developer) {
         return { message: 'Thank you for verification' }
       }
       throw new APIError({
-        message: 'User does not exist',
+        message: 'Developer does not exist',
         status: httpStatus.NOT_FOUND,
       });
     } catch(err) {
@@ -328,8 +345,8 @@ DeveloperSchema.statics = {
     if(!email || !otp) throw new APIError({ message: 'Can not verify otp due to insufficient information', status: httpStatus.BAD_REQUEST });
 
     try {
-      const user = await this.findOne({ email, otp }).exec();
-      if(user) {
+      const developer = await this.findOne({ email, otp }).exec();
+      if(developer) {
         return { message: 'OTP verified' };
       }
       throw new APIError({
@@ -343,18 +360,18 @@ DeveloperSchema.statics = {
 
   async FindOneAndUpdate(query, update) {
     try {
-      const user = await this.findOneAndUpdate(query, update).exec();
-      if(user) {
-        return user
+      const developer = await this.findOneAndUpdate(query, update).exec();
+      if(developer) {
+        return developer
       }
 
       throw new APIError({
-        message: 'User does not exist',
+        message: 'Developer does not exist',
         status: httpStatus.NOT_FOUND,
       });
     } catch(err) {
       throw new APIError({
-        message: 'User does not exist',
+        message: 'Developer does not exist',
         status: httpStatus.BAD_REQUEST,
       });
     }

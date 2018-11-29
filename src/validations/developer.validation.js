@@ -40,11 +40,28 @@ module.exports = {
         lastName: name,
         userName: name,
         password: Joi.string().min(6).max(128).required(),
+        role: Joi.string().valid(Developer.roles),
         category: categories,
     },
     params: {
       developerId: Joi.string().regex(/^[a-fA-F0-9]{24}$/).required(),
     },
   },
+
+    // PATCH /v1/developers/:developerId
+    updateDeveloper: {
+      body: {
+        email: Joi.string().email(),
+        firstName: name,
+        lastName: name,
+        userName: name,
+        password: Joi.string().min(6).max(128),
+        role: Joi.string().valid(Developer.roles),
+        category: categories,
+      },
+      params: {
+        developerId: Joi.string().regex(/^[a-fA-F0-9]{24}$/).required(),
+      },
+    },
 
 }
