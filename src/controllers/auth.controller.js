@@ -5,7 +5,7 @@ const Developer = require('../models/developer.model');
 const RefreshToken = require('../models/refreshToken.model');
 const { jwtExpirationInterval } = require('../config/vars');
 const { sendVerificationEmail } = require('./verification.controller');
-const { sendVerificationMail, sendVerificationSms } = require('../../config/vars');
+const { sendVerificationMail, sendVerificationSms } = require('../config/vars');
 
 /**
 * Returns a formated object with tokens
