@@ -4,6 +4,7 @@ const { omit } = require('lodash');
 const Developer = require('../models/developer.model');
 const { handler: errorHandler } = require('../middlewares/error');
 
+
 module.exports = {
     // Load developer and append to req.
     load: async (req, res, next, id) => {
@@ -42,12 +43,11 @@ module.exports = {
         const { developer } = req.locals;
         const newDeveloper = new Developer(req.body);
         const ommitRole = developer.role !== 'admin' ? 'role' : '';
-        console.log("this is omit role", ommitRole);
         const newDeveloperObject = omit(newDeveloper.toObject(), '_id', ommitRole);
-         console.log("this is newDeveloperObject", newDeveloperObject);
+        // The upsert option directs mongoDB to create a document if 
+        // it not present, otherwise it updates an existing document.
         await developer.updateOne(newDeveloperObject, { override: true, upsert: true });
         const savedDeveloper = await Developer.findById(developer._id);
-            console.log("this is saved user", savedDeveloper);
         res.json(savedDeveloper.transform());
         } catch (error) {
         next(Developer.checkDuplicateEmail(error));
@@ -94,3 +94,4 @@ module.exports = {
     }  
 }
 }
+

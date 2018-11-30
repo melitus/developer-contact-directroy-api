@@ -1,11 +1,11 @@
-const { appvar } = require('../config/vars');
+const { appKey } = require('../config/keys');
 const app = require('../config/express');
 
 // open mongoose connection
 require('../config/mongoose');
 
 // listen to requests
-app.listen(appvar.port, () => console.info(`server started on port ${appvar.port} (${appvar.env})`));
+app.listen(appKey.port, () => console.info(`server started on port ${appKey.port} (${appKey.env})`));
 
 /**
 * Exports express

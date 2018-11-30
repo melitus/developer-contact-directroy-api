@@ -37,6 +37,7 @@ refreshTokenSchema.statics = {
     const developerId = developer._id;
     const developerEmail = developer.email;
     const token = `${developerId}.${crypto.randomBytes(40).toString('hex')}`;
+   // const token = jwt.sign({data:developer}, jwtSecret)
     const expires = moment().add(30, 'days').toDate();
     const tokenObject = new RefreshToken({
       token, developerId, developerEmail, expires,

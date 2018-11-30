@@ -8,12 +8,12 @@ const generationRoutes = require('./generate.route');
 const router = express.Router();
 
 /**
- * GET v1/status
+ * GET /status
  */
 router.get('/status', (req, res) => res.send('OK'));
 
 /**
- * GET v1/docs
+ * GET /docs
  */
 router.use('/docs', express.static('docs'));
 

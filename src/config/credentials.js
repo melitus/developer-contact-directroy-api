@@ -5,7 +5,7 @@ module.exports = {
     secure: false,
     requireTLS: true,
     auth: {
-      user: 'asmelitus@mail.vinove.com',
+      developer: 'asmelitus@mail.vinove.com',
       pass: 'melitus@123'
     }
   },
@@ -18,8 +18,9 @@ module.exports = {
   SMTP_PORT: 587,
   MAIL_AUTH: {
     user: 'asmlitus@mail.vinove.com',
-    pass: 'pankaj@123'
+    pass: 'password@123'
   },
   SOLT_ROUND: 10,
-  ROLES: ["ADMIN", "USER", "SUPER_ADMIN"]
+  ROLES: ["ADMIN", "DEVELOPER", "SUPER_ADMIN"]
 };
+

@@ -9,7 +9,7 @@ require('dotenv-safe').load({
 });
 
 module.exports = {
-  appvar: {
+  appKey: {
     name: process.env.APP_NAME,
     port: process.env.APP_PORT || 8000,
     host: process.env.HOST || 'localhost',
@@ -22,7 +22,7 @@ module.exports = {
       ? process.env.MONGO_URI_TESTS
       : process.env.MONGO_URI,
   },
-  application_logging: {
+  appLog: {
     logs: process.env.NODE_ENV === 'production' ? 'combined' : 'dev',
     sendVerificationMail: true,
     sendVerificationSms: true

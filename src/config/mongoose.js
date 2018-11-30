@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const winston = require('winston');
-const { mongo } = require('./vars');
+
+const { mongo } = require('./keys');
 
 // make bluebird default Promise
 mongoose.Promise = require('bluebird'); 
